@@ -3,11 +3,11 @@ name: fastworkflow
 #how the workflow will be triggered
 on:
   push:
-    branches: [test1]
+    branches: [test2]
 
 jobs:
   #this workflow contains the below jobs
-  build:
+  build-in-linux:
     runs-on: ubuntu-latest
     #steps in the sequence
     steps: 
@@ -17,5 +17,25 @@ jobs:
       - name: run one line script
         run: echo githubaction
       #run multiple comments
-      - name: run multiline script
-        run: sh ./script.sh
+      - name: setup jdk1.8
+        uses: actions/setup-java@v1
+        with: 
+          java-version: 1.8
+      - name: build with maven
+        run: echo mvn -B package --file pom.xml
+  build-in-windows:
+    runs-on: windows-latest
+    #steps in the sequence
+    steps: 
+      #github provided action
+      - uses: actions/checkout@v2
+      #runsingle line comment
+      - name: run one line script
+        run: echo githubaction
+      #run multiple comments
+      - name: setup jdk1.8
+        uses: actions/setup-java@v1
+        with: 
+          java-version: 1.8
+      - name: build with maven
+        run: echo mvn -B package --file pom.xml

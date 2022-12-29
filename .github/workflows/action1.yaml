@@ -24,6 +24,7 @@ jobs:
       - name: build with maven
         run: echo mvn -B package --file pom.xml
   build-in-windows:
+    needs: build-in-linux
     runs-on: windows-latest
     #steps in the sequence
     steps: 
